@@ -18,6 +18,7 @@ steps:
 - task: ps-rule-assert@2
   inputs:
     outputFormat: 'NUnit3'
+    modules: 'PSRule.Rules.Azure'
 
 # - task: PSRule@1
 #   inputs:
