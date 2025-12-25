@@ -1,0 +1,28 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- task: PSRule@1
+  inputs:
+    module: 'PSRule.Rules.Azure'
+    inputPath: '/src/iac'
+    options: '/ps-rule.yaml'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Install-Module -Name PSRule.Rules.Azure -Force -Scope CurrentUser
+      pwsh -Command "Assert-PSRule -InputPath './templates' -Option './ps-rule.yaml'"
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'NUnit3'
+    testResultsFiles: '**/psrule-results.xml'
