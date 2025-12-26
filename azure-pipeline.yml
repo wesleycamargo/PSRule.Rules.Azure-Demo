@@ -17,8 +17,9 @@ steps:
 
 - task: ps-rule-assert@2
   inputs:
-    outputFormat: 'NUnit3'
     modules: 'PSRule.Rules.Azure'
+    outputFormat: 'NUnit3'
+    outputPath: '$(build.artifactstagingdirectory)/psrule'
 
 # - task: PSRule@1
 #   inputs:
