@@ -37,9 +37,9 @@ resource vault 'Microsoft.KeyVault/vaults@2023-02-01' = {
       defaultAction: defaultAction
     }
   }
-  tags: {
-    env: environment
-  }
+  // tags: {
+  //   env: environment
+  // }
 }
 
 @sys.description('Configure auditing for Key Vault.')
