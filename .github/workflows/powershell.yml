@@ -36,7 +36,7 @@ jobs:
         with:
           modules: PSRule.Rules.Azure # (2)
           outputFormat: Sarif
-          inputPath: './src/iac'
+          inputPath: '.\'
           outputPath: 'psrule-results.sarif'
 
       - name: Run PSScriptAnalyzer
