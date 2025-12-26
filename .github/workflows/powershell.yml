@@ -31,6 +31,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Run PSRule analysis
+        uses: microsoft/ps-rule@v2.9.0 # (1)
+        with:
+          modules: PSRule.Rules.Azure # (2)
+          outputFormat: Sarif
+          inputPath: './src/iac'
+          outputPath: 'psrule-results.sarif'
+
       - name: Run PSScriptAnalyzer
         uses: microsoft/psscriptanalyzer-action@6b2948b1944407914a58661c49941824d149734f
         with:
@@ -47,3 +55,8 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
+
+      - name: Upload PSRule SARIF results file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: psrule-results.sarif
